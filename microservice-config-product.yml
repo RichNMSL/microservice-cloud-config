@@ -5,13 +5,13 @@ spring:
 ---
 server:
   port: 8001
+
 mybatis:
   config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
   type-aliases-package: com.mengxuegu.springCloud.entities  # 所有Entity别名类所在包
   mapper-locations: classpath:mybatis/mapper/**/*.xml       # mapper映射文件
 
 spring:
-  profiles: dev # 开发环境
   application:
     name: microservice-product #这个很重要，这在以后的服务与服务之间相互调用一般都是根据这个name
   datasource:
@@ -31,15 +31,10 @@ eureka:
     register-with-eureka: true #是否向eureka注册
     fetchRegistry: true # 服务发现开
     serviceUrl: # 注册到哪一个Eureka Server服务注册中心，多个中间用逗号分隔
-      defaultZone: http://eureka6001.com:6001/eureka,http://eureka6002.com:6002/eureka
+      defaultZone: http://eureka6001.com:6001/eureka
   instance:
-    instance-id: ${spring.application.name}:${server.port}-hystrix
+    instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true #访问路径显示ip
-management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream
 
 ---
 server:
@@ -70,12 +65,7 @@ eureka:
     register-with-eureka: true #是否向eureka注册
     fetchRegistry: true # 服务发现开
     serviceUrl: # 注册到哪一个Eureka Server服务注册中心，多个中间用逗号分隔
-      defaultZone: http://eureka6001.com:6001/eureka,http://eureka6002.com:6002/eureka
+      defaultZone: http://eureka6001.com:6001/eureka
   instance:
-    instance-id: ${spring.application.name}:${server.port}-hystrix
+    instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true #访问路径显示ip
-management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream
